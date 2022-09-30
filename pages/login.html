@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- BootStrap Css  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- BootStrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+
+
+</head>
+<body>
+
+    <section>
+        <form class="container bg bg-">
+          <h1>Add Users</h1>
+          <div class="mb-3">
+            <label class="form-label">Email Id</label>
+            <input type="text" class="form-control" id="useremail" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" required>
+          </div>
+          <a href="/forget"><p>Forget Password ?</p></a>
+                  
+          <center>
+            <!-- <button type="button" class="btn btn-primary" onclick="login()">LogIn</button> -->
+            <!-- <a href="/signup"><button type="button" class="btn btn-primary">Sign Up</button></a> -->
+            <input class="btn btn-primary"  onclick="login()" value="LogIn" type="button"></a>
+            <a href="/signup"><input class="btn btn-primary" value="SignUp" type="button"></a>
+          </center>
+        </form>
+       </section>
+    
+</body>
+
+<script>
+
+  function login(){
+    // alert('Working')
+    var email = document.getElementById("useremail").value;
+    var password = document.getElementById("password").value;
+    if( email=='' && password==''){
+          alert("Please Enter All details");
+    }
+        else if(email==''){
+          alert("Please enter Email")
+        }
+        else if(password==''){
+          alert("Please enter Password")
+        }
+        else{
+          var data = {
+          
+          Email: document.getElementById('useremail').value,
+          Password: document.getElementById('password').value,      
+        };
+      
+  // var data = {
+  //       Email : Email_id,
+  //       Password : Password
+  //     }
+    console.log(data);
+    
+    fetch('/loginData',{
+      method:'POST',
+      headers: {
+        'Content-Type' : 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      alert("Login Was SeccessFull , Click Ok For Login")
+      window.location.href="/"
+    })
+    .catch((error)=>{
+        alert("Not Valid")
+      });
+        }
+       
+
+
+    }
+  
+</script>
+
+</html>
